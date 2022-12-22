@@ -46,6 +46,7 @@ def home():
             txt = process(raw_text)
             email = extractEmail(raw_text)
             url = urls(raw_text)
+            phone = extractMobile(raw_text)
             pdfFileObj.close()
             os.remove(file.filename)
             sentence_embeddings = model.encode([jd,txt])
@@ -54,6 +55,7 @@ def home():
             ner = token2tags(text_data,prediction)
             ner['EMAIL'] = email
             ner['URL'] = url
+            ner['PHONE'] = phone
             data = {'similarity':simi*100,'ner':ner}
             return json.dumps(data)
         except Exception as e:
